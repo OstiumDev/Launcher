@@ -5,9 +5,21 @@
     <TargetFramework>net5.0-windows7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
-    <ApplicationIcon>OST.ico</ApplicationIcon>
+    <ApplicationIcon>Images/OST.ico</ApplicationIcon>
     <Platforms>AnyCPU;x64</Platforms>
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Content\Ostium.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Content\Ostium.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MetroFramework" Version="1.2.0.3" />

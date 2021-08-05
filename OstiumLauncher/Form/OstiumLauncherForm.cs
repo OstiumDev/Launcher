@@ -31,17 +31,11 @@ using System.Windows.Forms;
 
 namespace OstiumLauncher
 {
-    public partial class Form1 : Form
+    public partial class OstiumLauncherForm : Form
     {
-        public Form1()
+        public OstiumLauncherForm()
         {
             InitializeComponent();
-        }
-
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
 
         private void metroButton4_Click(object sender, EventArgs e)
@@ -62,15 +56,16 @@ namespace OstiumLauncher
         {
             Process.Start(new ProcessStartInfo("steam://rungameid/677620") { UseShellExecute = true });
             this.Hide();
+            // temp sleep until dll injects on main menu
             Thread.Sleep(25000);
             foreach (var process in Process.GetProcessesByName("anticheat.x64.equ8"))
             {
                 process.Kill();
             }
-            bool injectSuccess = Injector.InjectDllIntoProcess("PortalWars-Win64-Shipping", $@"{Path.GetDirectoryName(Process.GetCurrentProcess().MainModule?.FileName)}\Ostium.dll", out int errorCode);
+            bool injectSuccess = Injector.InjectDllIntoProcess("PortalWars-Win64-Shipping", $@"{Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\Content\Ostium.dll", out int errorCode);
             if (!injectSuccess)
             {
-                Console.WriteLine("Injection failed please retry.");
+                MessageBox.Show("Injection failed please retry.", "Ostium - Error");
             }
             Environment.Exit(0);
         }
