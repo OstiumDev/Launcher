@@ -16,6 +16,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+using OstiumLauncher.Program;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -56,17 +57,7 @@ namespace OstiumLauncher
         {
             Process.Start(new ProcessStartInfo("steam://rungameid/677620") { UseShellExecute = true });
             this.Hide();
-            // temp sleep until dll injects on main menu
-            Thread.Sleep(25000);
-            foreach (var process in Process.GetProcessesByName("anticheat.x64.equ8"))
-            {
-                process.Kill();
-            }
-            bool injectSuccess = Injector.InjectDllIntoProcess("PortalWars-Win64-Shipping", $@"{Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)}\Content\Ostium.dll", out int errorCode);
-            if (!injectSuccess)
-            {
-                MessageBox.Show("Injection failed please retry.", "Ostium - Error");
-            }
+            util.injectPortalWars();
             Environment.Exit(0);
         }
 
@@ -76,6 +67,8 @@ namespace OstiumLauncher
             {
                 this.Hide();
                 Process.Start($"{textBox1.Text}\\PortalWars.exe", "-log");
+                util.injectPortalWars();
+                Environment.Exit(0);
             }
             else
             {

@@ -24,7 +24,7 @@ using System.Windows.Forms;
 
 namespace OstiumLauncher
 {
-    static class Program
+    static class OstiumProg
     {
         /// <summary>
         ///  The main entry point for the application.

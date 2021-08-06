@@ -12,16 +12,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Content\Ostium.dll" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Content\Ostium.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="MetroFramework" Version="1.2.0.3" />
   </ItemGroup>
 
