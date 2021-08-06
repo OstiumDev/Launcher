@@ -63,7 +63,18 @@ namespace OstiumLauncher
 
         private void metroButton3_Click(object sender, EventArgs e)
         {
-            if(File.Exists($"{textBox1.Text}\\PortalWars.exe"))
+            if (metroCheckBox1.Checked)
+            {
+                Properties.Settings.Default.location = textBox1.Text;
+                Properties.Settings.Default.Save();
+            }
+            else
+            {
+                Properties.Settings.Default.location = string.Empty;
+                Properties.Settings.Default.Save();
+            }
+
+            if (File.Exists($"{textBox1.Text}\\PortalWars.exe"))
             {
                 this.Hide();
                 Process.Start($"{textBox1.Text}\\PortalWars.exe", "-log");
@@ -79,6 +90,15 @@ namespace OstiumLauncher
         private void pictureBox2_Click(object sender, EventArgs e)
         {
             Process.Start(new ProcessStartInfo("https://discord.gg/R9UHJ4M9QW") { UseShellExecute = true });
+        }
+
+        private void OstiumLauncherForm_Load(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.location != string.Empty)
+            {
+                metroCheckBox1.Checked = true;
+                textBox1.Text = Properties.Settings.Default.location;
+            }
         }
     }
 }
